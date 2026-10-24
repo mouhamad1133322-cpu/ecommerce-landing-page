@@ -3,12 +3,11 @@ import { fetchProducts } from '../../Hooks/api';
 import ProductGrid from './prodactgrid';
 import Hero from './hero';
 
-
-export default function Home() {
+// 1. Accept onSelectProduct as a prop here
+export default function Home({ onSelectProduct }) {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-
 
     const [currentPage, setCurrentPage] = useState(1);
     const [totalProducts, setTotalProducts] = useState(0);
@@ -39,25 +38,23 @@ export default function Home() {
     return (
         <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col justify-between">
             <div>
-
-
-<Hero/>
+                <Hero />
 
                 <main className="py-12 bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-
                         <div className="text-center max-w-2xl mx-auto mb-12">
                             <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
                                 Featured Products
                             </h1>
-
                         </div>
 
 
-                        <ProductGrid products={products} isLoading={isLoading} error={error} />
-
-
+                        <ProductGrid
+                            products={products}
+                            isLoading={isLoading}
+                            error={error}
+                            onSelectProduct={onSelectProduct}
+                        />
 
                         {!isLoading && !error && totalPages > 1 && (
                             <div className="mt-12 flex items-center justify-center border-t border-gray-100 pt-6">
@@ -85,7 +82,6 @@ export default function Home() {
                                 </div>
                             </div>
                         )}
-
                     </div>
                 </main>
             </div>

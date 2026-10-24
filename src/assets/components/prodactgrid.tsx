@@ -1,6 +1,7 @@
+import ProductCard from "./prodactcard";
 
 
-export default function ProductGrid({ products, isLoading, error }) {
+export default function ProductGrid({ products, isLoading, error, onSelectProduct }) {
 
   if (error) {
     return (
@@ -13,7 +14,6 @@ export default function ProductGrid({ products, isLoading, error }) {
       </div>
     );
   }
-
 
   if (isLoading) {
     return (
@@ -30,7 +30,6 @@ export default function ProductGrid({ products, isLoading, error }) {
     );
   }
 
- 
   if (!products || products.length === 0) {
     return (
       <div className="max-w-md mx-auto p-12 bg-gray-50 border border-gray-200 rounded-xl text-center text-gray-600">
@@ -43,44 +42,14 @@ export default function ProductGrid({ products, isLoading, error }) {
     );
   }
 
-
   return (
     <div id="products" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {products.map((product) => (
-        <div
-          key={product.id}
-          className="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col justify-between"
-        >
-          <div>
-            <div className="h-44 w-full bg-gray-100 overflow-hidden">
-              <img
-                src={product.thumbnail}
-                alt={product.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-4">
-              <span className="inline-block px-2.5 py-1 bg-indigo-50 text-indigo-600 text-xs font-semibold rounded-full mb-2">
-                {product.category}
-              </span>
-              <h2 className="text-base font-bold text-gray-900 mb-1 line-clamp-1">
-                {product.title}
-              </h2>
-              <p className="text-xs text-gray-600 line-clamp-2 mb-3">
-                {product.description}
-              </p>
-            </div>
-          </div>
-
-          <div className="px-4 pb-4 pt-0 flex items-center justify-between">
-            <span className="text-lg font-bold text-indigo-600">
-              ${product.price}
-            </span>
-            <button className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium rounded-lg transition-colors">
-              Buy Now
-            </button>
-          </div>
-        </div>
+        <ProductCard 
+          key={product.id} 
+          product={product} 
+          onSelectProduct={onSelectProduct} 
+        />
       ))}
     </div>
   );
